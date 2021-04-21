@@ -20,6 +20,6 @@ dataSources:
         - name: Polkamon
           file: ./abis/PolkamonOfficialCollection.json
       eventHandlers:
-        - event: Transfer(address,address,uint256)
+        - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/mapping.ts
