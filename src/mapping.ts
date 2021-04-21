@@ -1,4 +1,4 @@
-import { Transfer } from '../generated/PolkamonOfficialCollection/PolkamonOfficialCollection'
+import { Transfer } from '../generated/Polkamon/Polkamon'
 import { PolkamonOwner } from '../generated/schema'
 
 export function handleTransfer(event: Transfer): void {
