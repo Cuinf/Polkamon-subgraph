@@ -2,3 +2,8 @@ type PolkamonOwner @entity {
   id: ID!
   owner: Bytes!
 }
+
+type PolkamonBalance @entity {
+  id: ID! #owner address
+  amount: BigInt!
+}
