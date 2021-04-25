@@ -17,11 +17,8 @@ export function handleTransfer(event: Transfer): void {
         if (polkamonBalance.amount > BigInt.fromI32(0)) {
             polkamonBalance.amount = polkamonBalance.amount - BigInt.fromI32(1)
         }
-    } else {
-        polkamonBalance = new PolkamonBalance(previousOwner)
-        polkamonBalance.amount = BigInt.fromI32(0)
-    }
-    polkamonBalance.save()
+        polkamonBalance.save()
+    }    
 
     let newOwner = event.params.to.toHex()
     let newPolkamonBalance = PolkamonBalance.load(newOwner)
