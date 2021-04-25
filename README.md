@@ -1,3 +1,3 @@
-# Example Subgraph
+# Polkamon Subgraph
 
-An example to help you get started with The Graph. For more information see the docs on https://thegraph.com/docs/.
+This subgraph is used to index the owner and the amount of the polkamon nft tokens.
