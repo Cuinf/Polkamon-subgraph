@@ -1,14 +1,16 @@
 import { Transfer } from '../generated/Polkamon/Polkamon'
 import { PolkamonOwner, PolkamonBalance } from '../generated/schema'
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, Address } from "@graphprotocol/graph-ts"
 
 export function handleTransfer(event: Transfer): void {
-    let id = event.params.tokenId.toHex()
+    let id = event.transaction.hash.toHex()
     let polkamon = PolkamonOwner.load(id)
     if (polkamon == null) {
         polkamon = new PolkamonOwner(id)
     }
+    polkamon.tokenId = event.params.tokenId
     polkamon.owner = event.params.to
+    polkamon.contract = Address.fromString("0x85F0e02cb992aa1F9F47112F815F519EF1A59E2D")
     polkamon.save()
 
     let previousOwner = event.params.from.toHex()
