@@ -23,6 +23,6 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       callHandlers:
-        - function: mint(indexed address,indexed uint256)
+        - function: mint(address,uint256)
           handler: handleMint      
       file: ./src/mapping.ts
