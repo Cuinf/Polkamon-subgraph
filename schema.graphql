@@ -11,7 +11,7 @@ type PolkamonBalance @entity {
 }
 
 type TransferTrace @entity{
-  id: ID #entity id
+  id: ID! #entity id
   from: Bytes! #from address
   to: Bytes! #to address
   timstamp: BigInt! #timestamp of the transfer action
