@@ -1,4 +1,4 @@
-import { Transfer } from '../generated/Polkamon/Polkamon'
+import { Transfer, BalanceOfCall } from '../generated/Polkamon/Polkamon'
 import { PolkamonOwner, PolkamonBalance } from '../generated/schema'
 import { BigInt, Address } from "@graphprotocol/graph-ts"
 
@@ -30,4 +30,14 @@ export function handleTransfer(event: Transfer): void {
     }
     newPolkamonBalance.amount = newPolkamonBalance.amount + BigInt.fromI32(1)
     newPolkamonBalance.save()
+}
+
+export function handleBalanceOf(call: BalanceOfCall): void {
+    let id = call.inputs._owner.toHex()
+    let polkamonBalance = PolkamonBalance.load(id)
+    if (polkamonBalance == null) {
+        polkamonBalance = new PolkamonBalance(id)
+    }
+    polkamonBalance.amount = call.value
+    polkamonBalance.save()
 }
