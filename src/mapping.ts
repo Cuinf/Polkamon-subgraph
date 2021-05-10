@@ -1,6 +1,6 @@
-import { Transfer, BalanceOfCall } from '../generated/Polkamon/Polkamon'
+import { Transfer, MintCall } from '../generated/Polkamon/Polkamon'
 import { PolkamonOwner, PolkamonBalance } from '../generated/schema'
-import { BigInt, Address } from "@graphprotocol/graph-ts"
+import { BigInt } from "@graphprotocol/graph-ts"
 
 export function handleTransfer(event: Transfer): void {
     let id = event.transaction.hash.toHex()
@@ -32,12 +32,12 @@ export function handleTransfer(event: Transfer): void {
     newPolkamonBalance.save()
 }
 
-export function handleBalanceOf(call: BalanceOfCall): void {
-    let id = call.inputs._owner.toHex()
+export function handleMint(call: MintCall): void {
+    let id = call.inputs._to.toHex()
     let polkamonBalance = PolkamonBalance.load(id)
     if (polkamonBalance == null) {
         polkamonBalance = new PolkamonBalance(id)
     }
-    polkamonBalance.amount = call.value
+    polkamonBalance.amount = BigInt.fromI32(1)
     polkamonBalance.save()
 }
