@@ -1,5 +1,5 @@
 import { Transfer, MintCall } from '../generated/Polkamon/Polkamon'
-import { PolkamonOwner, PolkamonBalance } from '../generated/schema'
+import { PolkamonOwner, PolkamonBalance, TransferTrace } from '../generated/schema'
 import { BigInt } from "@graphprotocol/graph-ts"
 
 export function handleTransfer(event: Transfer): void {
@@ -13,6 +13,14 @@ export function handleTransfer(event: Transfer): void {
     polkamon.contract = event.address
     polkamon.save()
 
+    //collect the entities of transfer traces
+    let transferEntity = new TransferTrace(id)
+    transferEntity.from = event.params.from
+    transferEntity.to = event.params.to
+    transferEntity.timestamp = event.block.timestamp
+    transferEntity.save()
+
+    //count the amount of tokens hold by an owner
     let previousOwner = event.params.from.toHex()
     let polkamonBalance = PolkamonBalance.load(previousOwner)
     if (polkamonBalance != null) {
