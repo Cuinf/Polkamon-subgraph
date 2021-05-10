@@ -11,7 +11,6 @@ export function handleTransfer(event: Transfer): void {
     polkamon.tokenId = event.params.tokenId
     polkamon.owner = event.params.to
     polkamon.contract = event.address
-    //polkamon.contract = Address.fromString("0x85F0e02cb992aa1F9F47112F815F519EF1A59E2D")
     polkamon.save()
 
     let previousOwner = event.params.from.toHex()
