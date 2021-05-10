@@ -33,7 +33,7 @@ export function handleTransfer(event: Transfer): void {
 }
 
 export function handleMint(call: MintCall): void {
-    let id = call.inputs._to.toHex()
+    let id = call.inputs.to.toHex()
     let polkamonBalance = PolkamonBalance.load(id)
     if (polkamonBalance == null) {
         polkamonBalance = new PolkamonBalance(id)
