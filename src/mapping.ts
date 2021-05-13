@@ -3,7 +3,7 @@ import { PolkamonOwner, PolkamonBalance, TransferTrace } from '../generated/sche
 import { BigInt } from "@graphprotocol/graph-ts"
 
 export function handleTransfer(event: Transfer): void {
-    let id = event.transaction.hash.toHex()
+    let id = event.params.tokenId.toHex()
     let polkamon = PolkamonOwner.load(id)
     if (polkamon == null) {
         polkamon = new PolkamonOwner(id)
@@ -14,7 +14,7 @@ export function handleTransfer(event: Transfer): void {
     polkamon.save()
 
     //collect the entities of transfer traces
-    let transferEntity = new TransferTrace(id)
+    let transferEntity = new TransferTrace(event.transaction.hash.toHex())
     transferEntity.from = event.params.from
     transferEntity.to = event.params.to
     transferEntity.timestamp = event.block.timestamp
